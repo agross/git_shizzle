@@ -1,19 +1,22 @@
 # -*- encoding: utf-8 -*-
 require 'git_shizzle/array'
+require 'git_shizzle/filters'
 
 module GitShizzle
   class QuickGit
+    include Filters
+
     def initialize(git)
       @git = git
     end
 
     def stage(*indexes)
-      changes_for(indexes) { |_,y,_| [:modified, :deleted].include?(y) }.
+      changes_for(indexes, &stagable_files).
         each { |status, changes| add_to_index(status, changes) }
     end
 
     def track(*indexes)
-      changes_for(indexes) { |_,y,_| y == :new }.
+      changes_for(indexes, &trackable_files).
         each { |status, changes| add_to_index(status, changes) }
     end
 
