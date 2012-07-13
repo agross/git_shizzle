@@ -8,11 +8,22 @@ module GitShizzle
     end
 
     def stage(*indexes)
-      @git.status.
-        find_all { |x,y,file| y != nil }.
-        find_by_indexes(indexes).
-        partition_on { |_,y,_| y }.
+      changes_for(indexes) { |x,y,file| y != nil }.
         each { |status, changes| stage_changes(status, changes) }
+    end
+
+    def track(*indexes)
+      changes_for(indexes) { |x,y,file| y == :new }.
+        each { |status, changes| stage_changes(status, changes) }
+    end
+
+    private
+
+    def changes_for(indexes, &filter)
+      @git.status.
+        find_all(&filter).
+        find_by_indexes(indexes).
+        partition_on { |_,y,_| y }
     end
 
     def stage_changes(status, changes)

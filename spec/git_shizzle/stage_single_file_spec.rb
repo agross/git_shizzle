@@ -20,12 +20,4 @@ describe "Staging a file by index" do
       subject.stage(1)
     end
   end
-
-  context "When the git status contains a single new file" do
-    it "should run git rm with the file" do
-      git.stub(:status).and_return [[:new, :new, "TEST_FILE"]]
-      git.should_receive(:add).with("TEST_FILE")
-      subject.stage(1)
-    end
-  end
 end
