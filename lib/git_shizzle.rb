@@ -18,7 +18,7 @@ module GitShizzle
     def stage_changes(status, changes)
       files = changes.map {|_,_,file| file }
       case status
-      when :modified
+      when :modified, :new
         @git.add(*files)
       else
         @git.rm(*files)
