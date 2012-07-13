@@ -8,13 +8,13 @@ module GitShizzle
     end
 
     def stage(*indexes)
-      changes_for(indexes) { |x,y,file| y != nil }.
-        each { |status, changes| stage_changes(status, changes) }
+      changes_for(indexes) { |_,y,_| [:modified, :deleted].include?(y) }.
+        each { |status, changes| add_to_index(status, changes) }
     end
 
     def track(*indexes)
-      changes_for(indexes) { |x,y,file| y == :new }.
-        each { |status, changes| stage_changes(status, changes) }
+      changes_for(indexes) { |_,y,_| y == :new }.
+        each { |status, changes| add_to_index(status, changes) }
     end
 
     private
@@ -26,7 +26,7 @@ module GitShizzle
         partition_on { |_,y,_| y }
     end
 
-    def stage_changes(status, changes)
+    def add_to_index(status, changes)
       files = changes.map {|_,_,file| file }
       case status
       when :modified, :new

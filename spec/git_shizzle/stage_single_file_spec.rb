@@ -20,4 +20,14 @@ describe "Staging a file by index" do
       subject.stage(1)
     end
   end
+
+  context "When the git status contains a new file" do
+    it "should not run git add or git rm for it" do
+      git.stub(:status).and_return [[:new, :new, "TEST_FILE"]]
+      git.should_not_receive(:rm).with("TEST_FILE")
+      git.should_not_receive(:add).with("TEST_FILE")
+      subject.stage(1)
+    end
+  end
 end
+
