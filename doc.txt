@@ -1,4 +1,7 @@
 stage 1 ==> index
+stage 1 2 3 4 ==> index
+stage 1..3 ==> index
+stage . ==> index
 diff 1 => show diff on modified tracked file
 unstage 1 ==> remove from index
 track 1 => add untracked file into index

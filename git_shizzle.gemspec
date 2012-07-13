@@ -3,11 +3,11 @@ $:.push File.expand_path("../lib", __FILE__)
 require "git_shizzle/version"
 
 Gem::Specification.new do |s|
-  s.name        = "minions"
+  s.name        = "Git Shizzle"
   s.version     = GitShizzle::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Bjoern Rochel"]
-  s.email       = ["bjoern@bjro.de"]
+  s.authors     = ["Bjoern Rochel", "Alexander Groß"]
+  s.email       = ["bjoern@bjro.de", "agross@therightstuff.de"]
   s.homepage    = ""
   s.summary     = %q{More or less useful extensions for git}
 

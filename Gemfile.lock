@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    minions (0.0.1)
+    Git Shizzle (0.0.1)
       thor
 
 GEM
@@ -47,11 +47,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  Git Shizzle!
   growl
   guard
   guard-bundler
   guard-rspec
-  minions!
   rake
   rspec
   ruby-debug19
