@@ -8,8 +8,8 @@ module GitShizzle
     end
 
     def stage(*indexes)
-      status = @git.status
-      status.find_all { |x,y,file| y != nil }.
+      @git.status.
+        find_all { |x,y,file| y != nil }.
         find_by_indexes(indexes).
         partition_on { |_,y,_| y }.
         each { |status, changes| stage_changes(status, changes) }
