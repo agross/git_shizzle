@@ -11,7 +11,7 @@ describe "Track a file by index" do
         stub(:type => '', :untracked => true, :path => "TEST_FILE"),
       ]
       git.should_receive(:add).with ["TEST_FILE"]
-      subject.track(1)
+      subject.track [1]
     end
   end
 end

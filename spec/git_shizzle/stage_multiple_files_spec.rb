@@ -11,7 +11,7 @@ describe "Staging multiple files by index" do
         stub(:type => 'M', :untracked => false, :path => "TEST_FILE2")
       ]
       git.should_receive(:add).with ["TEST_FILE", "TEST_FILE2"]
-      subject.stage(1,2)
+      subject.stage [1,2]
     end
   end
 
@@ -22,7 +22,7 @@ describe "Staging multiple files by index" do
         stub(:type => 'D', :untracked => false, :path => "TEST_FILE2"),
       ]
       git.should_receive(:rm).with ["TEST_FILE", "TEST_FILE2"]
-      subject.stage(1,2)
+      subject.stage [1,2]
     end
   end
 
@@ -34,7 +34,7 @@ describe "Staging multiple files by index" do
       ]
       git.should_not_receive(:rm).with("TEST_FILE", "TEST_FILE2")
       git.should_not_receive(:add).with("TEST_FILE", "TEST_FILE2")
-      subject.stage(1,2)
+      subject.stage [1,2]
     end
   end
 

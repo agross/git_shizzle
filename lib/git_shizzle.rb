@@ -10,12 +10,12 @@ module GitShizzle
       @git = git
     end
 
-    def stage(*indexes)
+    def stage(indexes)
       changes_for(indexes, &stagable_files).
         each { |type, changes| add_to_index(type, changes) }
     end
 
-    def track(*indexes)
+    def track(indexes)
       changes_for(indexes, &trackable_files).
         each { |type, changes| add_to_index(type, changes) }
     end
