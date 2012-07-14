@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{More or less useful extensions for git}
 
   s.add_dependency "thor"
+  s.add_dependency "git"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
