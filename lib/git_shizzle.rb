@@ -12,12 +12,12 @@ module GitShizzle
 
     def stage(*indexes)
       changes_for(indexes, &stagable_files).
-        each { |status, changes| add_to_index(status, changes) }
+        each { |type, changes| add_to_index(type, changes) }
     end
 
     def track(*indexes)
       changes_for(indexes, &trackable_files).
-        each { |status, changes| add_to_index(status, changes) }
+        each { |type, changes| add_to_index(type, changes) }
     end
 
     private
@@ -26,16 +26,16 @@ module GitShizzle
       @git.status.
         find_all(&filter).
         find_by_indexes(indexes).
-        partition_on { |_,y,_| y }
+        partition_on { |status_file| status_file.type }
     end
 
     def add_to_index(status, changes)
-      files = changes.map {|_,_,file| file }
+      files = changes.map {|status_file| status_file.path }
       case status
-      when :modified, :new
-        @git.add(*files)
+      when 'M', ''
+        @git.add(files)
       else
-        @git.rm(*files)
+        @git.rm(files)
       end
     end
   end

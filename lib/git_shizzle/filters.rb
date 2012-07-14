@@ -1,14 +1,12 @@
 # -*- encoding: utf-8 -*-
 module GitShizzle
   module Filters
-    ALLOWED_STAGE_OPS = [:modified, :deleted]
-
     def stagable_files
-      proc { |_,y,_| ALLOWED_STAGE_OPS.include?(y) }
+      proc { |status_file| status_file.type == 'M' || status_file.type == 'D' }
     end
 
     def trackable_files
-      proc { |_,y,_| y == :new }
+      proc { |status_file| status_file.untracked }
     end
   end
 end
