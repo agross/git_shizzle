@@ -16,7 +16,7 @@ describe "Staging a file by index" do
   context "When the git status contains a single deleted file" do
     it "should run git rm with the file" do
       git.stub(:status).and_return [stub(:type => 'D', :untracked => false, :path => "TEST_FILE")]
-      git.should_receive(:rm).with ["TEST_FILE"]
+      git.should_receive(:remove).with ["TEST_FILE"]
       subject.stage [1]
     end
   end

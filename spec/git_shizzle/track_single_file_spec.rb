@@ -8,7 +8,7 @@ describe "Track a file by index" do
   context "When the git status contains a single new file" do
     it "should run git add with the file" do
       git.stub(:status).and_return [
-        stub(:type => '', :untracked => true, :path => "TEST_FILE"),
+        stub(:type => nil, :untracked => true, :path => "TEST_FILE"),
       ]
       git.should_receive(:add).with ["TEST_FILE"]
       subject.track [1]

@@ -21,7 +21,7 @@ describe "Staging multiple files by index" do
         stub(:type => 'D', :untracked => false, :path => "TEST_FILE"),
         stub(:type => 'D', :untracked => false, :path => "TEST_FILE2"),
       ]
-      git.should_receive(:rm).with ["TEST_FILE", "TEST_FILE2"]
+      git.should_receive(:remove).with ["TEST_FILE", "TEST_FILE2"]
       subject.stage [1,2]
     end
   end
