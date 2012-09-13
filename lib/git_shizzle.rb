@@ -30,7 +30,7 @@ module GitShizzle
     end
 
     def add_to_index(status, changes)
-      files = changes.map {|status_file| status_file.path }
+      files = changes.map { |status_file| status_file.path }
       case status
       when 'M', nil
         @git.add(files)

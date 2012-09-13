@@ -1,7 +1,7 @@
 require 'git_shizzle'
 
 describe "Staging multiple files by index" do
-  let(:git) {stub}
+  let(:git) { stub }
   subject { GitShizzle::QuickGit.new(git) }
 
   context "When the git status contains modified files" do
