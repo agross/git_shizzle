@@ -2,7 +2,6 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 require 'thor'
-require 'git'
 require 'git-shizzle'
 
 class GitQuickApp < ::Thor
@@ -12,13 +11,13 @@ class GitQuickApp < ::Thor
   desc "#stage index [index ...]", USAGE
   method_options :dry_run => :boolean
   def stage(*indexes)
-    quick_git.stage(indexes.map(&:to_i))
+    shizzle.stage(indexes.map(&:to_i))
   end
 
   desc "#track index [index ...]", USAGE
   method_options :dry_run => :boolean
   def track(*indexes)
-    quick_git.track(indexes.map(&:to_i))
+    shizzle.track(indexes.map(&:to_i))
   end
 
   desc "Displays the help", ""
@@ -28,9 +27,9 @@ class GitQuickApp < ::Thor
 
   private
 
-  def quick_git
-    @quick_git ||= begin
-      git = Git.open(Dir.pwd)
+  def shizzle
+    @shizzle ||= begin
+      git = GitShizzle::Git.open(Dir.pwd)
       GitShizzle::QuickGit.new(git)
     end
   end
