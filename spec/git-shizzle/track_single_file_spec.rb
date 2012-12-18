@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), '../spec_helper')
 require 'git-shizzle'
 
 describe "Track a file by index" do

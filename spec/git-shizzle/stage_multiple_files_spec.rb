@@ -1,3 +1,4 @@
+require File.join(File.dirname(__FILE__), '../spec_helper')
 require 'git-shizzle'
 
 describe "Staging multiple files by index" do
