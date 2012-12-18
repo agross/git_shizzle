@@ -20,7 +20,6 @@ module GitRepository
 
   def create_sample_repo
     @repo_dir = Dir.mktmpdir "git-shizzle"
-    puts "Creating sample Git repository in #{@repo_dir}"
     Dir.chdir(@repo_dir) do
       `git init`
 
@@ -38,7 +37,6 @@ module GitRepository
   end
 
   def create(file)
-    puts "Creating #{file}"
     FileUtils.touch file
   end
 
