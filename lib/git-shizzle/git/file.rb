@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+require "git-shizzle/git/file_action"
 
 module GitShizzle
   class File
@@ -8,6 +9,31 @@ module GitShizzle
       @index_status = map params[:status][0]
       @work_tree_status = map params[:status][1]
       @path = params[:path]
+    end
+
+    def action(git, action)
+      self.send("action_#{action}", git)
+    end
+
+    private
+    def action_stage(git)
+      case @work_tree_status
+        when :modified
+          FileAction.new(git.method(:add), @path)
+        when :deleted
+          FileAction.new(git.method(:remove), @path)
+        else
+          nil
+      end
+    end
+
+    def action_track(git)
+      case @work_tree_status
+        when :untracked
+          FileAction.new(git.method(:add), @path)
+        else
+          nil
+      end
     end
 
     def map(status_code)
@@ -26,6 +52,10 @@ module GitShizzle
           :renamed
         when 'U'
           :unmerged
+        when ' '
+          nil
+        else
+          raise "Unexpected file status code '#{status_code}'"
       end
     end
   end

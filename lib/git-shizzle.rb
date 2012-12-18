@@ -12,40 +12,36 @@ module GitShizzle
     end
 
     def stage(indexes)
-      files = changes_for(indexes, &stageable_files).
-        map { |file| file.path }
+      files = changes_for(indexes, &stageable_files)
 
-      raise "No stageable files" if files.empty?
-
-      @git.add files
+      invoke files, :stage
     end
 
+
     def track(indexes)
-      files = changes_for(indexes, &trackable_files).
-        map { |file| file.path }
+      files = changes_for(indexes, &trackable_files)
 
-      raise "No untracked files" if files.empty?
-
-      @git.add files
+      invoke files, :track
     end
 
     private
-
     def changes_for(indexes, &filter)
       @git.status.
         find_all(&filter).
         find_by_indexes(indexes)
-        #stat.partition_on { |file| file.type }
     end
 
-    def add_to_index(status, changes)
-      files = changes.map { |file| file.path }
-      case status
-      when 'M', nil
-        @git.add(files)
-      else
-        @git.remove(files)
-      end
+    def invoke(files, action)
+      raise "No files for action #{action}" if files.empty?
+
+      files.
+        map { |f| f.action @git, action }.
+        partition_on { |file| file.action }.
+        each_pair { |method, action| method.call paths_for(action) }
+    end
+
+    def paths_for(action)
+      action.map { |a| a.path }
     end
   end
 end

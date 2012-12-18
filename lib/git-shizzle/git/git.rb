@@ -18,8 +18,7 @@ module GitShizzle
         status.
           each_line("\x00").
           each_with_index { |line, index|
-            files << File.new(
-            {
+            files << File.new({
               :index => index,
               :status => line[0..1],
               :path => line[3..-1].delete("\000")
@@ -41,6 +40,8 @@ module GitShizzle
     def command(cmd, opts = [], &block)
       opts = [opts].flatten.map { |s| escape(s) }.join(' ')
       git_cmd = "git #{cmd} #{opts} 2>&1"
+
+      puts git_cmd[0..-5]
 
       out = run_command(git_cmd, &block)
 
