@@ -1,4 +1,4 @@
-require 'git_shizzle'
+require 'git-shizzle'
 
 describe "Staging a file by index" do
 

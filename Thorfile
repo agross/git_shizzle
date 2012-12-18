@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 require 'thor'
 require 'git'
-require 'git_shizzle'
+require 'git-shizzle'
 
 class GitQuickApp < ::Thor
   USAGE = <<-EOH

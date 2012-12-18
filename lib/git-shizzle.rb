@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-require 'git_shizzle/array'
-require 'git_shizzle/filters'
+require 'git-shizzle/array'
+require 'git-shizzle/filters'
 
 module GitShizzle
   class QuickGit

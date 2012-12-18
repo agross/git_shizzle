@@ -1,4 +1,4 @@
-require 'git_shizzle'
+require 'git-shizzle'
 
 describe "Track a file by index" do
 

@@ -1,4 +1,4 @@
-require 'git_shizzle'
+require 'git-shizzle'
 
 describe "Staging multiple files by index" do
   let(:git) { stub }
