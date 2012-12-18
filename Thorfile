@@ -35,4 +35,3 @@ class GitQuickApp < ::Thor
     end
   end
 end
-
