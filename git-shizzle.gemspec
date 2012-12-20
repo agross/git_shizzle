@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
+require "rbconfig"
 require "git-shizzle/version"
 
 Gem::Specification.new do |s|
@@ -18,9 +19,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard"
   s.add_development_dependency "guard-rspec"
   s.add_development_dependency "guard-bundler"
-  s.add_development_dependency "wdm", "~> 0.0.3"
-  s.add_development_dependency "win32console"
-  s.add_development_dependency "ruby_gntp"
+
+  if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
+    s.add_development_dependency "wdm", "~> 0.0.3"
+    s.add_development_dependency "win32console"
+    s.add_development_dependency "ruby_gntp"
+  end
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")

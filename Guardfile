@@ -1,4 +1,8 @@
-notification :gntp, :host => 'localhost'
+if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
+  notification :gntp, :host => 'localhost'
+else
+  notification :growl
+end
 
 guard 'bundler' do
   watch('Gemfile')
