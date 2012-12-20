@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "guard-bundler"
 
   if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
-    s.add_development_dependency "wdm", "~> 0.0.3"
     s.add_development_dependency "win32console"
     s.add_development_dependency "ruby_gntp"
   end
