@@ -1,9 +1,14 @@
 # -*- encoding: utf-8 -*-
-require 'git-shizzle/git/git'
+
 require 'git-shizzle/array'
 require 'git-shizzle/filters'
+require 'git-shizzle/git'
+require 'git-shizzle/index_specifications'
 
 module GitShizzle
+  class IndexSpecificationError < StandardError
+  end
+
   class QuickGit
     include Filters
 
@@ -11,24 +16,48 @@ module GitShizzle
       @git = git
     end
 
-    def stage(indexes)
+    def stage(*indexes)
       files = changes_for(indexes, &stageable_files)
 
       invoke files, :stage
     end
 
 
-    def track(indexes)
+    def track(*indexes)
       files = changes_for(indexes, &trackable_files)
 
       invoke files, :track
     end
 
     private
+    def merge(indexes)
+      indexes.map { |index|
+        case index
+          when /\.\.\./
+            #IndexSpecifications::ExclusiveRange.new(index)
+            ::Range.new(*index.split("...").map(&:to_i)).to_a[0..-2]
+          when /\.\./
+            #IndexSpecifications::Range.new(index)
+            ::Range.new(*index.split("..").map(&:to_i)).to_a
+          when /\./
+            raise "Not supported"
+          else
+            #IndexSpecifications::File.new(index)
+            index.to_i
+        end
+      }.flatten.uniq
+    end
+
     def changes_for(indexes, &filter)
-      @git.status.
+      indexes = merge indexes
+
+      files, unmatched_indexes = @git.status.
         find_all(&filter).
         find_by_indexes(indexes)
+
+      raise IndexSpecificationError, "Could not determine files for indexes: #{unmatched_indexes.join(', ')}" if unmatched_indexes.any?
+
+      files
     end
 
     def invoke(files, action)
@@ -45,4 +74,3 @@ module GitShizzle
     end
   end
 end
-

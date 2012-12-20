@@ -3,7 +3,7 @@ require 'git-shizzle'
 
 describe "Stage files by index" do
 
-  let(:git) { GitShizzle::Git.new(@repo) }
+  let(:git) { GitShizzle::Git::Git.new(@repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
   context "repository with modified files" do
@@ -20,7 +20,7 @@ describe "Stage files by index" do
 
     context "when a deleted file is staged" do
       it "should run git rm" do
-        subject.stage [1]
+        subject.stage 1
 
         git.status[0].index_status.should == :deleted
         git.status[1].index_status.should be_nil
@@ -29,7 +29,7 @@ describe "Stage files by index" do
 
     context "when a modified file is staged" do
       it "should run git add" do
-        subject.stage [2]
+        subject.stage 2
 
         git.status[0].index_status.should be_nil
         git.status[1].index_status.should == :modified
@@ -38,7 +38,7 @@ describe "Stage files by index" do
 
     context "when a modified and a deleted file is staged" do
       it "should run git add and git rm" do
-        subject.stage [1, 2]
+        subject.stage 1, 2
 
         git.status[0].index_status.should == :deleted
         git.status[1].index_status.should == :modified
@@ -59,7 +59,7 @@ describe "Stage files by index" do
       end
 
       it "should run git add" do
-        subject.stage [1]
+        subject.stage 1
 
         git.status[0].index_status.should == :modified
         git.status[0].work_tree_status.should be_nil
@@ -69,7 +69,7 @@ describe "Stage files by index" do
 
   context "when the repository contains no modified files" do
     it "should fail" do
-      lambda { subject.stage [1] }.should raise_error
+      lambda { subject.stage 1 }.should raise_error
     end
   end
 end

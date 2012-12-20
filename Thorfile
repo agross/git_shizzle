@@ -11,13 +11,13 @@ class GitQuickApp < ::Thor
   desc "#stage index [index ...]", USAGE
   method_options :dry_run => :boolean
   def stage(*indexes)
-    shizzle.stage(indexes.map(&:to_i))
+    shizzle.stage indexes
   end
 
   desc "#track index [index ...]", USAGE
   method_options :dry_run => :boolean
   def track(*indexes)
-    shizzle.track(indexes.map(&:to_i))
+    shizzle.track indexes
   end
 
   desc "Displays the help", ""
@@ -26,10 +26,9 @@ class GitQuickApp < ::Thor
   end
 
   private
-
   def shizzle
     @shizzle ||= begin
-      git = GitShizzle::Git.open(Dir.pwd)
+      git = GitShizzle::Git.new(Dir.pwd)
       GitShizzle::QuickGit.new(git)
     end
   end

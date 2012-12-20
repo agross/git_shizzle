@@ -11,9 +11,20 @@ class Array
 
   def find_by_indexes(indexes)
     result = []
-    self.each_with_index do |element, i|
-      result << element if indexes.include?(i + 1)
+    matched_indexes = []
+
+    self.each_with_index do |element, index|
+      next unless indexes.include? humanize(index)
+
+      matched_indexes << humanize(index)
+      result << element
     end
-    result
+
+    [result, indexes - matched_indexes]
+  end
+
+  private
+  def humanize(index)
+    index + 1
   end
 end
