@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
+Dir["#{File.dirname(__FILE__)}/git/*.rb"].each do |path|
+  require "git-shizzle/git/#{File.basename(path, '.rb')}"
+end
+
 module GitShizzle::Git
-  require "git-shizzle/git/git"
-  require "git-shizzle/git/file"
-  require "git-shizzle/git/file_action"
 end

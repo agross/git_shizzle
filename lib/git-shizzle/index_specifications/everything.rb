@@ -1,19 +1,17 @@
 # -*- encoding: utf-8 -*-
 
-module GitShizzle
-  module IndexSpecifications
-    class Everything < IndexSpecification
-      def include?(index)
-        true
-      end
+module GitShizzle::IndexSpecifications
+  class Everything < IndexSpecification
+    def include?(index)
+      true
+    end
 
-      def unmatched
-        []
-      end
+    def unmatched
+      []
+    end
 
-      def inspect
-        self.class
-      end
+    def inspect
+      self.class
     end
   end
 end
