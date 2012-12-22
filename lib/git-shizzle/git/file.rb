@@ -15,6 +15,10 @@ module GitShizzle
         self.send("action_#{action}", git)
       end
 
+      def inspect
+        "Path: #{path}: work tree #{@work_tree_status}, index #{@index_status}"
+      end
+
       private
       def action_stage(git)
         case @work_tree_status

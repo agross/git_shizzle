@@ -35,6 +35,14 @@ describe "Indexes specified on the CLI" do
       end
     end
 
+    context "when specifying a string index" do
+      it "should operate on the file mapped to the index" do
+        subject.track "1"
+
+        assert_index_status :added, :untracked
+      end
+    end
+
     context "when specifying a non-numeric index" do
       it "should fail" do
         lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a'/)
