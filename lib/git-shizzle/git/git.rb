@@ -41,7 +41,7 @@ module GitShizzle::Git
       opts = [opts].flatten.map { |s| escape(s) }.join(' ')
       git_cmd = "git #{cmd} #{opts} 2>&1"
 
-      puts git_cmd[0..-5]
+      echo git_cmd[0..-5]
 
       out = run_command(git_cmd, &block)
 
@@ -65,6 +65,10 @@ module GitShizzle::Git
       else
         `#{git_cmd}`.chomp
       end
+    end
+
+    def echo(msg)
+      puts(msg) if defined?(Thor)
     end
   end
 end
