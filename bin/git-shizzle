@@ -10,4 +10,9 @@ rescue LoadError => e
   exit -1
 end
 
-GitShizzle::Cli.start
+begin
+  GitShizzle::Cli.start
+rescue GitShizzle::Error => error
+  $stderr.puts error.message
+  exit 1
+end

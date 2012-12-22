@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+require 'git-shizzle/error'
 require 'git-shizzle/array'
 require 'git-shizzle/filters'
 require 'git-shizzle/git'
@@ -51,7 +52,7 @@ module GitShizzle
     end
 
     def invoke(files, action)
-      raise "No files for action #{action}" if files.empty?
+      raise GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action #{action}." if files.empty?
 
       files.
         map { |f| f.action @git, action }.

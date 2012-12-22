@@ -3,6 +3,7 @@
 module GitShizzle
   module Git
     class GitExecuteError < StandardError
+      include GitShizzle::Error
     end
 
     class Git

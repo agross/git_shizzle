@@ -21,6 +21,12 @@ describe "Indexes specified on the CLI" do
   end
 
   describe "indexes" do
+    context "when no index is specified" do
+      it "should fail" do
+        lambda { subject.track }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action track.")
+      end
+    end
+
     context "when specifying an index" do
       it "should operate on the file mapped to the index" do
         subject.track 1

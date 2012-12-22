@@ -12,13 +12,13 @@ module GitShizzle
     desc "stage", "Stage file(s) by index or range"
     method_options :dry_run => :boolean
     def stage(*indexes)
-      shizzle.stage indexes
+      shizzle.stage *indexes
     end
 
     desc "track", "Track file(s) by index or range"
     method_options :dry_run => :boolean
     def track(*indexes)
-      shizzle.track indexes
+      shizzle.track *indexes
     end
 
     desc "help", "Displays the help"
