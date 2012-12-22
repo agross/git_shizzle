@@ -19,7 +19,6 @@ module GitShizzle
       invoke files, :stage
     end
 
-
     def track(*indexes)
       files = changes_for(indexes, &trackable_files)
 
