@@ -4,7 +4,7 @@ require "rbconfig"
 require "git-shizzle/version"
 
 Gem::Specification.new do |s|
-  s.name        = "Git Shizzle"
+  s.name        = "git-shizzle"
   s.version     = GitShizzle::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Bjoern Rochel", "Alexander Groß"]

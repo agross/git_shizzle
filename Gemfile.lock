@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    Git Shizzle (0.0.1)
+    git-shizzle (0.0.1)
       thor
 
 GEM
@@ -46,7 +46,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  Git Shizzle!
+  git-shizzle!
   guard
   guard-bundler
   guard-rspec
