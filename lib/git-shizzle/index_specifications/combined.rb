@@ -27,18 +27,16 @@ module GitShizzle::IndexSpecifications
     end
 
     def apply(files)
-      result = []
-
-      files.each_with_index do |element, index|
+      result = files.each_with_index.map do |element, index|
         next unless include? index
         register_match index
 
-        result << element
-      end
+        element
+      end.compact
 
-      unmatched_indexes = @specs.map { |spec|
+      unmatched_indexes = @specs.map do |spec|
         spec.unmatched
-      }.flatten.compact.uniq.sort
+      end.flatten.compact.uniq.sort
 
       raise IndexSpecificationError, "Could not determine files for indexes: #{unmatched_indexes.join(', ')}" if unmatched_indexes.any?
 
