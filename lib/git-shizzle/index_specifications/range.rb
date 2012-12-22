@@ -2,13 +2,17 @@
 
 module GitShizzle
   module IndexSpecifications
-    class Range
+    class Range < IndexSpecification
       def initialize(index)
         @range = ::Range.new(*index.split("..").map(&:to_i)).to_a
       end
 
       def include?(index)
         @range.include? index
+      end
+
+      def unmatched
+        @range - matches
       end
 
       def inspect

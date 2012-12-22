@@ -6,9 +6,6 @@ require 'git-shizzle/git'
 require 'git-shizzle/index_specifications'
 
 module GitShizzle
-  class IndexSpecificationError < StandardError
-  end
-
   class QuickGit
     include Filters
 
@@ -30,34 +27,28 @@ module GitShizzle
     end
 
     private
-    def merge(indexes)
-      indexes.map { |index|
+    def create_index_specification(indexes)
+      specs = indexes.map { |index|
         case index
           when /\.\.\./
-            #IndexSpecifications::ExclusiveRange.new(index)
-            ::Range.new(*index.split("...").map(&:to_i)).to_a[0..-2]
+            IndexSpecifications::ExclusiveRange.new(index)
           when /\.\./
-            #IndexSpecifications::Range.new(index)
-            ::Range.new(*index.split("..").map(&:to_i)).to_a
+            IndexSpecifications::Range.new(index)
           when /\./
-            raise "Not supported"
+            IndexSpecifications::Everything.new
           else
-            #IndexSpecifications::File.new(index)
-            index.to_i
+            IndexSpecifications::File.new(index)
         end
-      }.flatten.uniq
+      }
+
+      IndexSpecifications::Combined.new specs
     end
 
     def changes_for(indexes, &filter)
-      indexes = merge indexes
+      files = @git.status.find_all(&filter)
 
-      files, unmatched_indexes = @git.status.
-        find_all(&filter).
-        find_by_indexes(indexes)
-
-      raise IndexSpecificationError, "Could not determine files for indexes: #{unmatched_indexes.join(', ')}" if unmatched_indexes.any?
-
-      files
+      spec = create_index_specification indexes
+      spec.apply files
     end
 
     def invoke(files, action)

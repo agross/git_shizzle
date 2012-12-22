@@ -2,7 +2,7 @@
 
 module GitShizzle
   module IndexSpecifications
-    class File
+    class File < IndexSpecification
       def initialize(index)
         @index = index
       end
@@ -12,7 +12,7 @@ module GitShizzle
       end
 
       def unmatched
-
+        ([] << @index) - matches
       end
 
       def inspect

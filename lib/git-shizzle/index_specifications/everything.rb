@@ -2,7 +2,7 @@
 
 module GitShizzle
   module IndexSpecifications
-    class Everything
+    class Everything < IndexSpecification
       def include?(index)
         true
       end

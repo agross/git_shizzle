@@ -31,7 +31,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric index", :draft => true do
       it "should fail" do
-        lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecificationError, "Could not parse index 'a'. Please use numeric indexes or Ruby-style ranges.")
+        lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "Could not parse index 'a'. Please use numeric indexes or Ruby-style ranges.")
 
         assert_index_status :untracked
       end
@@ -39,7 +39,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying an index outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track 42 }.should raise_error(GitShizzle::IndexSpecificationError, 'Could not determine files for indexes: 42')
+        lambda { subject.track 42 }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
 
         assert_index_status :untracked
       end
@@ -73,7 +73,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric range", :draft => true do
       it "should fail" do
-        lambda { subject.track "a..z" }.should raise_error(GitShizzle::IndexSpecificationError, "Could not parse index 'a..z'. Please use numeric indexes or Ruby-style ranges.")
+        lambda { subject.track "a..z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "Could not parse index 'a..z'. Please use numeric indexes or Ruby-style ranges.")
 
         assert_index_status :untracked
       end
@@ -81,7 +81,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a range outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track "11..15" }.should raise_error(GitShizzle::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
+        lambda { subject.track "11..15" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
 
         assert_index_status :untracked
       end
@@ -89,7 +89,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a range partly outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track "9..15" }.should raise_error(GitShizzle::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
+        lambda { subject.track "9..15" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
 
         assert_index_status :untracked
       end
@@ -104,7 +104,7 @@ describe "Indexes specified on the CLI" do
     end
   end
 
-  describe "current directory", :draft => true do
+  describe "current directory" do
     context "when a specifying the current directory" do
       it "should operate on each file" do
         subject.track "."
@@ -123,7 +123,7 @@ describe "Indexes specified on the CLI" do
 
     context "when a specifying the current directory and a file index outside of the range of available indexes" do
       it "should operate on each file" do
-        lambda { subject.track 42, "." }.should raise_error(GitShizzle::IndexSpecificationError, 'Could not determine files for indexes: 42')
+        lambda { subject.track 42, "." }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
 
         assert_index_status :untracked
       end
