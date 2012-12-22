@@ -23,7 +23,7 @@ describe "Indexes specified on the CLI" do
   describe "indexes" do
     context "when no index is specified" do
       it "should fail" do
-        lambda { subject.track }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action track.")
+        expect { subject.track }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action track.")
       end
     end
 
@@ -45,7 +45,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric index" do
       it "should fail" do
-        lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a'/)
+        expect { subject.track "a" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a'/)
 
         assert_index_status :untracked
       end
@@ -53,7 +53,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying an index outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track 42 }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
+        expect { subject.track 42 }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
 
         assert_index_status :untracked
       end
@@ -87,7 +87,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric range" do
       it "should fail" do
-        lambda { subject.track "a..z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.z'/)
+        expect { subject.track "a..z" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.z'/)
 
         assert_index_status :untracked
       end
@@ -95,7 +95,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric exclusive range" do
       it "should fail" do
-        lambda { subject.track "a...z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.\.z'/)
+        expect { subject.track "a...z" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.\.z'/)
 
         assert_index_status :untracked
       end
@@ -103,7 +103,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a range outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track "11..15" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
+        expect { subject.track "11..15" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
 
         assert_index_status :untracked
       end
@@ -111,7 +111,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a range partly outside of the range of available indexes" do
       it "should fail" do
-        lambda { subject.track "9..15" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
+        expect { subject.track "9..15" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 11, 12, 13, 14, 15')
 
         assert_index_status :untracked
       end
@@ -145,7 +145,7 @@ describe "Indexes specified on the CLI" do
 
     context "when a specifying the current directory and a file index outside of the range of available indexes" do
       it "should operate on each file" do
-        lambda { subject.track 42, "." }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
+        expect { subject.track 42, "." }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, 'Could not determine files for indexes: 42')
 
         assert_index_status :untracked
       end

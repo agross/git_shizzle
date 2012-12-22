@@ -69,7 +69,7 @@ describe "Stage files by index" do
 
   context "when the repository contains no modified files" do
     it "should fail" do
-      lambda { subject.stage 1 }.should raise_error
+      expect { subject.stage 1 }.to raise_error
     end
   end
 end

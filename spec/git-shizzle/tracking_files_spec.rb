@@ -35,7 +35,7 @@ describe "Track files by index" do
 
   context "when the repository contains no untracked files" do
     it "should fail" do
-      lambda { subject.track 1 }.should raise_error
+      expect { subject.track 1 }.to raise_error
     end
   end
 end
