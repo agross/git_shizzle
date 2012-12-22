@@ -17,7 +17,7 @@ module GitShizzle
     private
 
     def shizzle
-      @shizzle ||= GitShizzle::QuickGit.new(GitShizzle::Git::Git.new(Dir.pwd))
+      @shizzle ||= GitShizzle::QuickGit.new
     end
   end
 end

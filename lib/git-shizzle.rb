@@ -13,7 +13,7 @@ module GitShizzle
   class QuickGit
     include Filters
 
-    def initialize(git)
+    def initialize(git = Git::Git.new(Dir.pwd))
       @git = git
     end
 
