@@ -38,7 +38,7 @@ module GitShizzle::IndexSpecifications
         spec.unmatched
       end.flatten.compact.uniq.sort
 
-      raise IndexSpecificationError, "Could not determine files for indexes: #{unmatched_indexes.join(', ')}" if unmatched_indexes.any?
+      raise IndexSpecificationError.new(unmatched_indexes) if unmatched_indexes.any?
 
       result
     end

@@ -23,7 +23,7 @@ describe "Indexes specified on the CLI" do
   describe "indexes" do
     context "when no index is specified" do
       it "should fail" do
-        expect { subject.track }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action track.")
+        expect { subject.track }.to raise_error(GitShizzle::IndexSpecifications::NoFilesError, "No files for action track.")
       end
     end
 
@@ -45,7 +45,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric index" do
       it "should fail" do
-        expect { subject.track "a" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a'/)
+        expect { subject.track "a" }.to raise_error(GitShizzle::IndexSpecifications::IndexParserError, /Could not parse index 'a'/)
 
         assert_index_status :untracked
       end
@@ -87,7 +87,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric range" do
       it "should fail" do
-        expect { subject.track "a..z" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.z'/)
+        expect { subject.track "a..z" }.to raise_error(GitShizzle::IndexSpecifications::IndexParserError, /Could not parse index 'a\.\.z'/)
 
         assert_index_status :untracked
       end
@@ -95,7 +95,7 @@ describe "Indexes specified on the CLI" do
 
     context "when specifying a non-numeric exclusive range" do
       it "should fail" do
-        expect { subject.track "a...z" }.to raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.\.z'/)
+        expect { subject.track "a...z" }.to raise_error(GitShizzle::IndexSpecifications::IndexParserError, /Could not parse index 'a\.\.\.z'/)
 
         assert_index_status :untracked
       end

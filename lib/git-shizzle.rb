@@ -8,8 +8,6 @@ require 'git-shizzle/index_specifications'
 
 module GitShizzle
 
-  class IndexSpecificationError < Error; end
-
   class QuickGit
     include Filters
 
@@ -55,7 +53,7 @@ module GitShizzle
     end
 
     def invoke(files, action)
-      raise GitShizzle::IndexSpecifications::IndexSpecificationError, "No files for action #{action}." if files.empty?
+      raise GitShizzle::IndexSpecifications::NoFilesError.new(action) if files.empty?
 
       files.
         map { |f| f.action @git, action }.

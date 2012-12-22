@@ -25,7 +25,7 @@ module GitShizzle::IndexSpecifications
         s.is_a? Numeric or /\d+/.match(s)
       }
 
-      raise IndexSpecificationError, "Could not parse index '#{index}'. Please use numeric indexes or Ruby-style ranges." unless all_numeric
+      raise IndexParserError.new(index) unless all_numeric
     end
   end
 end
