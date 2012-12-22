@@ -3,7 +3,7 @@ require 'git-shizzle'
 
 describe "Indexes specified on the CLI" do
 
-  let(:git) { GitShizzle::Git::Git.new(@repo) }
+  let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
   let(:number_of_untracked_files) { 10 }
 

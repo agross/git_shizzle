@@ -3,7 +3,7 @@ require 'git-shizzle'
 
 describe "Track files by index" do
 
-  let(:git) { GitShizzle::Git::Git.new(@repo) }
+  let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
   context "repository with untracked files" do

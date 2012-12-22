@@ -3,7 +3,7 @@ require 'git-shizzle'
 
 describe "Stage files by index" do
 
-  let(:git) { GitShizzle::Git::Git.new(@repo) }
+  let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
   context "repository with modified files" do

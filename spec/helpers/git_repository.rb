@@ -11,7 +11,6 @@ module GitRepository
 
   def create_sample_repo
     @previous_dir = Dir.pwd
-
     @repo = Dir.mktmpdir 'git-shizzle'
     Dir.chdir(@repo)
     `git init`
