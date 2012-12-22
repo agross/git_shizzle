@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::IndexSpecifications
-  class ExclusiveRange < IndexSpecification
+  class ExclusiveRange < Base
     def initialize(index)
       spec = index.split("...")
       assert_numeric index, *spec

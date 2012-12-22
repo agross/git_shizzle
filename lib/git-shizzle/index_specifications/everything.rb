@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::IndexSpecifications
-  class Everything < IndexSpecification
+  class Everything < Base
     def include?(index)
       true
     end

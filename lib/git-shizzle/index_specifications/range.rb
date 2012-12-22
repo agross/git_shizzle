@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::IndexSpecifications
-  class Range < IndexSpecification
+  class Range < Base
     def initialize(index)
       spec = index.split("..")
       assert_numeric index, *spec

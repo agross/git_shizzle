@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::IndexSpecifications
-  class File < IndexSpecification
+  class File < Base
     def initialize(index)
       assert_numeric index
       @index = index.to_i
