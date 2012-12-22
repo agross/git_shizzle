@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
+require 'active_support/core_ext/enumerable.rb'
 require 'git-shizzle/error'
-require 'git-shizzle/array'
 require 'git-shizzle/filters'
 require 'git-shizzle/git'
 require 'git-shizzle/index_specifications'
@@ -59,7 +59,7 @@ module GitShizzle
 
       files.
         map { |f| f.action @git, action }.
-        partition_on { |file| file.action }.
+        group_by { |file| file.action }.
         each_pair { |method, a| method.call paths_for(a) }
     end
 
