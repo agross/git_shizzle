@@ -7,6 +7,9 @@ require 'git-shizzle/git'
 require 'git-shizzle/index_specifications'
 
 module GitShizzle
+
+  class IndexSpecificationError < StandardError; end
+
   class QuickGit
     include Filters
 
@@ -57,7 +60,7 @@ module GitShizzle
       files.
         map { |f| f.action @git, action }.
         partition_on { |file| file.action }.
-        each_pair { |method, action| method.call paths_for(action) }
+        each_pair { |method, a| method.call paths_for(a) }
     end
 
     def paths_for(action)
