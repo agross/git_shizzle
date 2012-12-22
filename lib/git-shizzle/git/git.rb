@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::Git
-  class GitExecuteError < StandardError
-    include GitShizzle::Error
-  end
+  class GitExecuteError < GitShizzle::Error; end
 
   class Git
     def initialize(repo_location)

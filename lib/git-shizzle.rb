@@ -8,7 +8,7 @@ require 'git-shizzle/index_specifications'
 
 module GitShizzle
 
-  class IndexSpecificationError < StandardError; end
+  class IndexSpecificationError < Error; end
 
   class QuickGit
     include Filters

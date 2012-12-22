@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle
-  module Error
-  end
+  class Error < StandardError; end
 end

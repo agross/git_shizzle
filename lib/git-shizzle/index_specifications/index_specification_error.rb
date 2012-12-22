@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::IndexSpecifications
-  class IndexSpecificationError < StandardError
-    include GitShizzle::Error
-  end
+  class IndexSpecificationError < GitShizzle::Error; end
 end
