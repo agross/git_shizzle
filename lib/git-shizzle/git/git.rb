@@ -6,35 +6,30 @@ module GitShizzle::Git
   end
 
   class Git
-    def initialize(dir)
-      @repository = dir
+    def initialize(repo_location)
+      @repo_location = repo_location
     end
 
     def status
-      files = []
-
-      Dir.chdir(@repository) do
+      Dir.chdir(@repo_location) do
         status = `git status --porcelain -z`
         status.
-                each_line("\x00").
-                each_with_index { |line, index|
-          files << File.new({
-                  :index => index,
-                  :status => line[0..1],
-                  :path => line[3..-1].delete("\000")
-          })
-        }
+          each_line("\x00").
+          each_with_index.map do |line, index|
+            File.new(
+              :index => index,
+              :status => line[0..1],
+              :path => line[3..-1].delete("\000"))
+          end
       end
-
-      files
     end
 
     def add(files)
-      command "add", files
+      command 'add', files
     end
 
     def remove(files)
-      command "rm", files
+      command 'rm', files
     end
 
     def command(cmd, opts = [], &block)
