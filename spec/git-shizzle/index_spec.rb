@@ -29,9 +29,9 @@ describe "Indexes specified on the CLI" do
       end
     end
 
-    context "when specifying a non-numeric index", :draft => true do
+    context "when specifying a non-numeric index" do
       it "should fail" do
-        lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "Could not parse index 'a'. Please use numeric indexes or Ruby-style ranges.")
+        lambda { subject.track "a" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a'/)
 
         assert_index_status :untracked
       end
@@ -71,9 +71,17 @@ describe "Indexes specified on the CLI" do
       end
     end
 
-    context "when specifying a non-numeric range", :draft => true do
+    context "when specifying a non-numeric range" do
       it "should fail" do
-        lambda { subject.track "a..z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, "Could not parse index 'a..z'. Please use numeric indexes or Ruby-style ranges.")
+        lambda { subject.track "a..z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.z'/)
+
+        assert_index_status :untracked
+      end
+    end
+
+    context "when specifying a non-numeric exclusive range" do
+      it "should fail" do
+        lambda { subject.track "a...z" }.should raise_error(GitShizzle::IndexSpecifications::IndexSpecificationError, /Could not parse index 'a\.\.\.z'/)
 
         assert_index_status :untracked
       end

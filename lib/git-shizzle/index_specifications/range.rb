@@ -4,7 +4,10 @@ module GitShizzle
   module IndexSpecifications
     class Range < IndexSpecification
       def initialize(index)
-        @range = ::Range.new(*index.split("..").map(&:to_i)).to_a
+        spec = index.split("..")
+        assert_numeric index, *spec
+
+        @range = ::Range.new(*spec.map(&:to_i)).to_a
       end
 
       def include?(index)

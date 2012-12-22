@@ -4,6 +4,7 @@ module GitShizzle
   module IndexSpecifications
     class File < IndexSpecification
       def initialize(index)
+        assert_numeric index
         @index = index
       end
 
