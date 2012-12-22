@@ -23,6 +23,9 @@ Gem::Specification.new do |s|
   if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
     s.add_development_dependency "win32console"
     s.add_development_dependency "ruby_gntp"
+  else
+    s.add_development_dependency "rb-fsevent"
+    s.add_development_dependency "growl"
   end
 
   s.files         = `git ls-files`.split("\n")
