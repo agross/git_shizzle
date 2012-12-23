@@ -2,8 +2,7 @@
 
 module GitShizzle::Dsl
   class CommandCollection
-    def initialize(git)
-      @git = git
+    def initialize
       @commands = []
     end
 
@@ -28,7 +27,7 @@ module GitShizzle::Dsl
 
     private
     def dsl
-      GitShizzle::Dsl::Dsl.new(self, @git)
+      GitShizzle::Dsl::Dsl.new(self)
     end
   end
 end

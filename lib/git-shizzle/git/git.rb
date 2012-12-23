@@ -22,14 +22,6 @@ module GitShizzle::Git
       end
     end
 
-    def add(files)
-      command 'add', files
-    end
-
-    def remove(files)
-      command 'rm', files
-    end
-
     def command(cmd, opts = [], &block)
       opts = [opts].flatten.map { |s| escape(s) }.join(' ')
       git_cmd = "git #{cmd} #{opts} 2>&1"

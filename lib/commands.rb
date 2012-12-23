@@ -9,9 +9,9 @@ command :stage do
   action do |index, work_tree, path|
     case work_tree
       when :modified
-        [:add, path]
+        ['add', path]
       when :deleted
-        [:remove, path]
+        ['rm', path]
     end
   end
 end
@@ -25,9 +25,9 @@ command :stage_with_patch do
   action do |index, work_tree, path|
     case work_tree
       when :modified
-        [:add_patch, path]
+        ['add --patch', path]
       when :deleted
-        [:remove_patch, path]
+        ['rm --patch', path]
     end
   end
 end
@@ -39,6 +39,6 @@ command :track do
   end
 
   action do |index, work_tree, path|
-     [:add, path] if work_tree == :untracked
+     ['add', path] if work_tree == :untracked
   end
 end

@@ -11,7 +11,7 @@ module GitShizzle
   class QuickGit
     def initialize(git = Git::Git.new(Dir.pwd))
       @git = git
-      @commands = GitShizzle::Dsl::CommandCollection.new(git)
+      @commands = GitShizzle::Dsl::CommandCollection.new
       @commands.load
     end
 
@@ -19,14 +19,14 @@ module GitShizzle
       command = @commands.find :stage
       files = changes_for(indexes, command)
 
-      invoke files, :stage
+      command.invoke @git, files
     end
 
     def track(*indexes)
       command = @commands.find :track
       files = changes_for(indexes, command)
 
-      invoke files, :track
+      command.invoke @git, files
     end
 
     private
@@ -52,19 +52,6 @@ module GitShizzle
 
       spec = create_index_specification indexes
       spec.apply files
-    end
-
-    def invoke(files, action)
-      raise GitShizzle::IndexSpecifications::NoFilesError.new(action) if files.empty?
-
-      files.
-        map { |f| f.action @git, action }.
-        group_by { |file| file.action }.
-        each_pair { |method, a| method.call paths_for(a) }
-    end
-
-    def paths_for(action)
-      action.map { |a| a.path }
     end
   end
 end

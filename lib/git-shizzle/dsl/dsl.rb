@@ -2,9 +2,8 @@
 
 module GitShizzle::Dsl
   class Dsl
-    def initialize(commands, git)
+    def initialize(commands)
       @commands = commands
-      @git = git
     end
 
     def desc(description)
