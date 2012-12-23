@@ -3,15 +3,12 @@
 require 'active_support/core_ext/enumerable.rb'
 require 'git-shizzle/error'
 require 'git-shizzle/dsl'
-require 'git-shizzle/filters'
 require 'git-shizzle/git'
 require 'git-shizzle/index_specifications'
 
 module GitShizzle
 
   class QuickGit
-    include Filters
-
     def initialize(git = Git::Git.new(Dir.pwd))
       @git = git
       @commands = GitShizzle::Dsl::CommandCollection.new(git)
