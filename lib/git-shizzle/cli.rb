@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 require 'thor'
-require 'git-shizzle'
+require 'git_shizzle'
 
 module GitShizzle
   class Cli < Thor

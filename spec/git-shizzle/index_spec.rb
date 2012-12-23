@@ -1,5 +1,5 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
-require 'git-shizzle'
+require 'git_shizzle'
 
 describe "Indexes specified on the CLI" do
 
