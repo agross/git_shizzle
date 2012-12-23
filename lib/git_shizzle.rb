@@ -15,18 +15,15 @@ module GitShizzle
       @commands.load
     end
 
-    def stage(*indexes)
-      command = @commands.find :stage
-      files = changes_for(indexes, command)
+    def run(command, *indexes)
+      cmd = @commands.find command
+      files = changes_for(indexes, cmd)
 
-      command.invoke @git, files
+      cmd.invoke @git, files
     end
 
-    def track(*indexes)
-      command = @commands.find :track
-      files = changes_for(indexes, command)
-
-      command.invoke @git, files
+    def method_missing(sym, *args)
+      run(sym, *args)
     end
 
     private

@@ -21,6 +21,16 @@ module GitShizzle::Dsl
       dsl.instance_eval(data, "./#{filename}")
     end
 
+    def each(&block)
+      @commands.each do |command|
+        if block_given?
+          block.call command
+        else
+          yield command
+        end
+      end
+    end
+
     def find(identifier)
       @commands.find { |c| c.identifier == identifier } or raise GitShizzle::Dsl::CommandNotFound.new(identifier)
     end

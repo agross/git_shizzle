@@ -9,11 +9,14 @@ module GitShizzle
     Hello, world.
     EOH
 
-    [:stage, :track].each do |action|
-      desc "#{action}", "#{action} file(s) by index or range"
-      define_method(action) do |*indexes|
+    @commands = GitShizzle::Dsl::CommandCollection.new
+    @commands.load
+
+    @commands.each do |command|
+      desc "#{command.identifier}", "#{command.description} by index or range"
+      define_method(command.identifier) do |*indexes|
         begin
-          shizzle.send(action, *indexes)
+          shizzle.send(:run, command.identifier, *indexes)
         rescue GitShizzle::Error => e
           puts e.message
         end
