@@ -22,6 +22,11 @@ module GitShizzle::Dsl
       dsl.instance_eval(data, "./#{filename}")
     end
 
+    def find(identifier)
+      @commands.find { |c| c.identifier == identifier } or raise GitShizzle::Dsl::CommandNotFound.new(identifier)
+    end
+
+    private
     def dsl
       GitShizzle::Dsl::Dsl.new(self, @git)
     end

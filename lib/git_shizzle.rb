@@ -19,13 +19,15 @@ module GitShizzle
     end
 
     def stage(*indexes)
-      files = changes_for(indexes, &stageable_files)
+      command = @commands.find :stage
+      files = changes_for(indexes, command)
 
       invoke files, :stage
     end
 
     def track(*indexes)
-      files = changes_for(indexes, &trackable_files)
+      command = @commands.find :track
+      files = changes_for(indexes, command)
 
       invoke files, :track
     end
@@ -48,8 +50,8 @@ module GitShizzle
       IndexSpecifications::Combined.new specs
     end
 
-    def changes_for(indexes, &filter)
-      files = @git.status.find_all(&filter)
+    def changes_for(indexes, command)
+      files = command.applicable_files(@git.status)
 
       spec = create_index_specification indexes
       spec.apply files
