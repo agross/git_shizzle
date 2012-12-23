@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 module GitShizzle::Git
-  class GitExecuteError < GitShizzle::Error; end
+  class GitExecuteError < GitShizzle::Error;
+  end
 
   class Git
     def initialize(repo_location)
@@ -10,50 +11,56 @@ module GitShizzle::Git
 
     def status
       Dir.chdir(@repo_location) do
-        status = `git status --porcelain -z`
+        status = command 'status --porcelain -z', [], :verbose => false, :redirect_io => true
         status.
-          each_line("\x00").
-          each_with_index.map do |line, index|
-            File.new(
-              :index => index,
-              :status => line[0..1],
-              :path => line[3..-1].delete("\000"))
-          end
+                each_line("\x00").
+                each_with_index.map do |line, index|
+          File.new(
+                  :index => index,
+                  :status => line[0..1],
+                  :path => line[3..-1].delete("\000"))
+        end
       end
     end
 
-    def command(cmd, opts = [], &block)
+    def command(cmd, opts = [], params = { }, &block)
       opts = [opts].flatten.map { |s| escape(s) }.join(' ')
-      git_cmd = "git #{cmd} #{opts} 2>&1"
 
-      echo git_cmd[0..-5]
+      git_cmd = "git #{cmd} #{opts}"
+      echo git_cmd, params.fetch(:verbose, true)
 
-      out = run_command(git_cmd, &block)
+      out = run_command(git_cmd, params, &block)
 
       if $?.exitstatus > 0
         if $?.exitstatus == 1 && out == ''
           return ''
         end
-        raise GitShizzle::GitExecuteError.new(git_cmd + ':' + out.to_s)
+        raise GitShizzle::Git::GitExecuteError.new(git_cmd + ':' + out.to_s)
       end
       out
     end
 
+    private
     def escape(s)
       escaped = s.to_s.gsub('\'', '\'\\\'\'')
       %Q{"#{escaped}"}
     end
 
-    def run_command(git_cmd, &block)
+    def run_command(git_cmd, params = { }, &block)
       if block_given?
         IO.popen(git_cmd, &block)
       else
-        `#{git_cmd}`.chomp
+        if params.fetch(:redirect_io, false)
+          git_cmd += " 2>&1"
+          `#{git_cmd}`.chomp
+        else
+          system git_cmd
+        end
       end
     end
 
-    def echo(msg)
-      puts(msg) if defined?(Thor)
+    def echo(msg, verbose)
+      puts(msg) if verbose && defined?(Thor)
     end
   end
 end
