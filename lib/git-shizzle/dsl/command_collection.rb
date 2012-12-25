@@ -7,17 +7,24 @@ module GitShizzle::Dsl
     end
 
     def add_command(command)
+      raise DuplicateCommandDefinitionError.new(command) if @commands.any? { |c| c.identifier == command.identifier}
+
       @commands << command
     end
 
-    def load
-      filenames = ['commands', 'Commands', 'commands.rb', 'Commands.rb'].map do |f|
-        "#{File.dirname(__FILE__)}/../../#{f}"
-      end
-      filename = filenames.find { |f| File.file?(f) }
-      raise GitShizzle::Dsl::NoActionsFileFound.new if filename.nil?
+    def load(contents = nil)
+      data = contents
 
-      data = File.read(filename)
+      unless data
+        filenames = ['commands', 'Commands', 'commands.rb', 'Commands.rb'].map do |f|
+          "#{File.dirname(__FILE__)}/../../#{f}"
+        end
+        filename = filenames.find { |f| File.file?(f) }
+        raise GitShizzle::Dsl::NoActionsFileFound.new if filename.nil?
+
+        data = File.read(filename)
+      end
+
       dsl.instance_eval(data, "./#{filename}")
     end
 
