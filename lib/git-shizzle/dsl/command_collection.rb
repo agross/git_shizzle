@@ -20,7 +20,7 @@ module GitShizzle::Dsl
           "#{File.dirname(__FILE__)}/../../#{f}"
         end
         filename = filenames.find { |f| File.file?(f) }
-        raise GitShizzle::Dsl::NoActionsFileFound.new if filename.nil?
+        raise GitShizzle::Dsl::NoActionsFileFoundError.new if filename.nil?
 
         data = File.read(filename)
       end
@@ -39,7 +39,7 @@ module GitShizzle::Dsl
     end
 
     def find(identifier)
-      @commands.find { |c| c.identifier == identifier } or raise GitShizzle::Dsl::CommandNotFound.new(identifier)
+      @commands.find { |c| c.identifier == identifier } or raise GitShizzle::Dsl::CommandNotFoundError.new(identifier)
     end
 
     private

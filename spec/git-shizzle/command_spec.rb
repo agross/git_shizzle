@@ -8,7 +8,7 @@ describe "Commands specified on the CLI" do
 
   context "when invoking a command that does not exist" do
     it "should fail" do
-      expect { subject.run(:blah) }.to raise_error(GitShizzle::Dsl::CommandNotFound, "Could not find 'blah' command.")
+      expect { subject.run(:blah) }.to raise_error(GitShizzle::Dsl::CommandNotFoundError, "Could not find 'blah' command.")
     end
   end
 end
