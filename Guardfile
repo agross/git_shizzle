@@ -1,6 +1,9 @@
-if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
+case RbConfig::CONFIG['target_os']
+when /windows|bccwin|cygwin|djgpp|mingw|mswin|wince/i
   notification :gntp, :host => 'localhost'
-else
+when /linux/i
+  notification :notifysend
+when /mac|darwin/i
   notification :growl
 end
 
