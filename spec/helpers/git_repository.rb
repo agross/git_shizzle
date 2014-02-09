@@ -20,6 +20,7 @@ module GitRepository
 
   def create(file)
     FileUtils.touch file
+    modify(file)
   end
 
   def modify(file)
