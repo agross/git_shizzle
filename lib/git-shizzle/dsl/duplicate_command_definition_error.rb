@@ -3,7 +3,7 @@
 module GitShizzle::Dsl
   class DuplicateCommandDefinitionError < GitShizzle::Error
     def initialize(command)
-      super "The '#{command.identifier}' was specified twice."
+      super "The '#{command.identifier}' command was specified twice."
     end
   end
 end

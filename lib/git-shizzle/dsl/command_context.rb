@@ -7,12 +7,12 @@ module GitShizzle::Dsl
     end
 
     def applies_to(&block)
-      raise CommandDefinitionError.new("#applies_to requires a block") unless block_given?
+      raise CommandDefinitionError.new(@command, "#applies_to requires a block.") unless block_given?
       @command.set_filter block
     end
 
     def action(&block)
-      raise CommandDefinitionError.new("#action requires a block") unless block_given?
+      raise CommandDefinitionError.new(@command, "#action requires a block.") unless block_given?
       @command.set_action block
     end
   end

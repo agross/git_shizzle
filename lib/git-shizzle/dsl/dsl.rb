@@ -11,7 +11,7 @@ module GitShizzle::Dsl
     end
 
     def command(identifier, &block)
-      raise CommandDefinitionError.new("#command requires a block") unless block_given?
+      raise CommandDefinitionError.new(identifier, "#command requires a block.") unless block_given?
 
       command = Command.new(identifier, @description, block)
       @commands.add_command(command)

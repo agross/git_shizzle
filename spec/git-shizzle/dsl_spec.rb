@@ -10,7 +10,7 @@ describe "Command DSL" do
 command :foo
       EOF
 
-      expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, /command requires a block/)
+      expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, "Command 'foo': #command requires a block.")
     end
   end
 
@@ -21,7 +21,7 @@ command :foo do end
 command :foo do end
     EOF
 
-    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::DuplicateCommandDefinitionError)
+    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::DuplicateCommandDefinitionError, "The 'foo' command was specified twice.")
   end
 
   it "should not accept empty filters" do
@@ -32,7 +32,7 @@ command :foo do
 end
     EOF
 
-    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, /applies_to requires a block/)
+    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, "Command 'foo': #applies_to requires a block.")
   end
 
   it "should not accept empty actions" do
@@ -43,6 +43,6 @@ command :foo do
 end
     EOF
 
-    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, /action requires a block/)
+    expect { commands.load command_spec }.to raise_error(GitShizzle::Dsl::CommandDefinitionError, "Command 'foo': #action requires a block.")
   end
 end
