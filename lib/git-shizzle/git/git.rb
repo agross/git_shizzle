@@ -51,7 +51,7 @@ module GitShizzle::Git
         IO.popen(git_cmd, &block)
       else
         if params.fetch(:redirect_io, false)
-          git_cmd += " 2>&1"
+          git_cmd += ' 2>&1'
           `#{git_cmd}`.chomp
         else
           system git_cmd

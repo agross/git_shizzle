@@ -1,25 +1,25 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 require 'git_shizzle'
 
-describe "Stage files by index" do
+describe 'Stage files by index' do
 
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
-  context "repository with modified files" do
+  context 'repository with modified files' do
     before (:each) do
       %w{ deleted modified }.each { |f| create f; stage f }
       `git commit --message Blah`
 
-      delete "deleted"
-      modify "modified"
+      delete 'deleted'
+      modify 'modified'
 
       git.status[0].work_tree_status.should == :deleted
       git.status[1].work_tree_status.should == :modified
     end
 
-    context "when a deleted file is staged" do
-      it "should run git rm" do
+    context 'when a deleted file is staged' do
+      it 'should run git rm' do
         subject.stage 1
 
         git.status[0].index_status.should == :deleted
@@ -27,8 +27,8 @@ describe "Stage files by index" do
       end
     end
 
-    context "when a modified file is staged" do
-      it "should run git add" do
+    context 'when a modified file is staged' do
+      it 'should run git add' do
         subject.stage 2
 
         git.status[0].index_status.should be_nil
@@ -36,8 +36,8 @@ describe "Stage files by index" do
       end
     end
 
-    context "when a modified and a deleted file is staged" do
-      it "should run git add and git rm" do
+    context 'when a modified and a deleted file is staged' do
+      it 'should run git add and git rm' do
         subject.stage 1, 2
 
         git.status[0].index_status.should == :deleted
@@ -46,8 +46,8 @@ describe "Stage files by index" do
     end
   end
 
-  context "staged file has been modified" do
-    context "when the file is staged" do
+  context 'staged file has been modified' do
+    context 'when the file is staged' do
       before do
         %w{ modified }.each { |f| create f; stage f }
         `git commit --message Blah`
@@ -58,7 +58,7 @@ describe "Stage files by index" do
         git.status[0].work_tree_status.should == :modified
       end
 
-      it "should run git add" do
+      it 'should run git add' do
         subject.stage 1
 
         git.status[0].index_status.should == :modified
@@ -67,8 +67,8 @@ describe "Stage files by index" do
     end
   end
 
-  context "when the repository contains no modified files" do
-    it "should fail" do
+  context 'when the repository contains no modified files' do
+    it 'should fail' do
       expect { subject.stage 1 }.to raise_error
     end
   end

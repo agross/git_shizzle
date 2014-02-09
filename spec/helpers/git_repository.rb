@@ -1,6 +1,6 @@
-require "tmpdir"
-require "fileutils"
-require "securerandom"
+require 'tmpdir'
+require 'fileutils'
+require 'securerandom'
 
 module GitRepository
   extend RSpec::SharedContext

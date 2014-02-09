@@ -23,7 +23,7 @@ module GitShizzle
       end
     end
 
-    desc "help", "displays the help"
+    desc 'help', 'displays the help'
     def help
       puts USAGE
     end

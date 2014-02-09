@@ -3,7 +3,7 @@
 module GitShizzle::IndexSpecifications
   class ExclusiveRange < Base
     def initialize(index)
-      spec = index.split("...")
+      spec = index.split('...')
       assert_numeric index, *spec
 
       @range = ::Range.new(*spec.map(&:to_i)).to_a[0..-2]

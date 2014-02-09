@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Bjoern Rochel', 'Alexander Groß']
   s.email       = ['bjoern@bjro.de', 'agross@therightstuff.de']
-  s.homepage    = "http://grossweber.com"
+  s.homepage    = 'http://grossweber.com'
   s.licenses    = ['BSD']
   s.description = %q{git-shizzle lets you quickly operate on the file lists printed by `git status`. Imagine a number before each line of the status output and use that index to specify the file you want to operate on. For example, to stage the first file in the list of "Changes not staged for commit", run `quick-git stage 1`.}
   s.summary     = %q{Quickly operate on the git working copy and the index}
@@ -38,5 +38,5 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.executables   = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib']
 end
