@@ -14,6 +14,8 @@ module GitRepository
     @repo = Dir.mktmpdir 'git-shizzle'
     Dir.chdir(@repo)
     `git init`
+    `git config user.name somebody`
+    `git config user.email somebody@example.com`
   end
 
   def create(file)
