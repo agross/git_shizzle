@@ -7,10 +7,6 @@ module GitShizzle
   class Cli < Thor
     package_name 'GitShizzle'
 
-    USAGE = <<-EOH
-    Hello, world.
-    EOH
-
     commands = GitShizzle::Dsl::CommandCollection.new
     commands.load
 
@@ -23,11 +19,6 @@ module GitShizzle
           puts e.message
         end
       end
-    end
-
-    desc 'help', 'displays the help'
-    def help
-      puts USAGE
     end
 
     private
