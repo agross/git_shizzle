@@ -23,7 +23,7 @@ describe "Indexes specified on the CLI" do
   describe "indexes" do
     context "when no index is specified" do
       it "should fail" do
-        expect { subject.track }.to raise_error(GitShizzle::IndexSpecifications::NoFilesError, "No files for action track.")
+        expect { subject.track }.to raise_error(GitShizzle::IndexSpecifications::NoFilesError, "No files for command 'track'.")
       end
     end
 

@@ -14,8 +14,8 @@ module GitShizzle::IndexSpecifications
   end
 
   class NoFilesError < GitShizzle::Error
-    def initialize(action)
-      super "No files for action #{action}."
+    def initialize(identifier)
+      super "No files for command '#{identifier}'."
     end
   end
 end

@@ -4,7 +4,7 @@ module GitShizzle::Dsl
   class Command
     attr_reader :identifier, :description
 
-    def initialize( identifier, description, block)
+    def initialize(identifier, description, block)
       @identifier = identifier
       @description = description
 
