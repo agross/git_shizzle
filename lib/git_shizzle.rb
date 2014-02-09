@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-require 'active_support/core_ext/enumerable.rb'
 require 'git-shizzle/error'
 require 'git-shizzle/dsl'
 require 'git-shizzle/git'
