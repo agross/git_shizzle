@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require File.join(File.dirname(__FILE__), '../../spec_helper')
 require 'git_shizzle'
 
 describe "Stage files by index" do
@@ -9,7 +9,7 @@ describe "Stage files by index" do
   context "repository with modified files" do
     before (:each) do
       %w{ deleted modified }.each { |f| create f; stage f }
-      `git commit --message "Blah"`
+      `git commit --message Blah`
 
       delete "deleted"
       modify "modified"
@@ -50,7 +50,7 @@ describe "Stage files by index" do
     context "when the file is staged" do
       before do
         %w{ modified }.each { |f| create f; stage f }
-        `git commit --message "Blah"`
+        `git commit --message Blah`
 
         %w{ modified }.each { |f| modify f; stage f; modify f }
 

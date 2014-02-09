@@ -31,7 +31,7 @@ module GitRepository
   end
 
   def stage(file = nil)
-    `git add #{file || '--all'}`
+    `git add --all #{file}`
   end
 
   def remove_sample_repo

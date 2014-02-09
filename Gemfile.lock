@@ -64,6 +64,7 @@ DEPENDENCIES
   guard-rspec
   rake
   rspec
+  rspec-mocks
   ruby_gntp
   wdm
   win32console
