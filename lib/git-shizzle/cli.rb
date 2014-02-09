@@ -11,10 +11,10 @@ module GitShizzle
     Hello, world.
     EOH
 
-    @commands = GitShizzle::Dsl::CommandCollection.new
-    @commands.load
+    commands = GitShizzle::Dsl::CommandCollection.new
+    commands.load
 
-    @commands.each do |command|
+    commands.each do |command|
       desc "#{command.identifier}", "#{command.description} by index or range"
       define_method(command.identifier) do |*indexes|
         begin
@@ -31,7 +31,6 @@ module GitShizzle
     end
 
     private
-
     def shizzle
       @shizzle ||= GitShizzle::QuickGit.new
     end
