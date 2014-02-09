@@ -20,7 +20,7 @@ module GitShizzle::Dsl
           "#{File.dirname(__FILE__)}/../../#{f}"
         end
         filename = filenames.find { |f| File.file?(f) }
-        raise GitShizzle::Dsl::NoActionsFileFoundError.new if filename.nil?
+        raise GitShizzle::Dsl::NoCommandFileFoundError.new if filename.nil?
 
         data = File.read(filename)
       end
