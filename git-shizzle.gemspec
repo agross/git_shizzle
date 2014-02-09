@@ -9,8 +9,10 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Bjoern Rochel', 'Alexander Groß']
   s.email       = ['bjoern@bjro.de', 'agross@therightstuff.de']
-  s.homepage    = ""
-  s.summary     = %q{More or less useful extensions for git}
+  s.homepage    = "http://grossweber.com"
+  s.licenses    = ['BSD']
+  s.description = %q{git-shizzle lets you quickly operate on the file lists printed by `git status`. Imagine a number before each line of the status output and use that index to specify the file you want to operate on. For example, to stage the first file in the list of "Changes not staged for commit", run `quick-git stage 1`.}
+  s.summary     = %q{Quickly operate on the git working copy and the index}
 
   s.add_dependency 'thor',          '~> 0.16.0'
 
