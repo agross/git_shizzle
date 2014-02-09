@@ -9,7 +9,7 @@ describe "Git Repository" do
   context "when invoking a command outside a Git repository" do
     it "should fail" do
       FileUtils.rm_rf '.git'
-      expect { subject.run(:track) }.to raise_error(GitShizzle::Git::GitExecuteError)
+      expect { subject.run(:track) }.to raise_error(GitShizzle::Git::GitExecuteError, /Not a git repository/)
     end
   end
 end
