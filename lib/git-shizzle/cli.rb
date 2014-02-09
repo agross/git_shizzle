@@ -5,6 +5,8 @@ require 'git_shizzle'
 
 module GitShizzle
   class Cli < Thor
+    package_name 'GitShizzle'
+
     USAGE = <<-EOH
     Hello, world.
     EOH
