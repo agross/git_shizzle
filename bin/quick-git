@@ -1,4 +1,5 @@
-# -*- encoding: utf-8 -*-
+#! ruby
+
 $:.push File.expand_path("../../lib/git-shizzle", __FILE__)
 
 require 'thor'
