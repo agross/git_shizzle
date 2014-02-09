@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = %q{git-shizzle lets you quickly operate on the file lists printed by `git status`. Imagine a number before each line of the status output and use that index to specify the file you want to operate on. For example, to stage the first file in the list of "Changes not staged for commit", run `quick-git stage 1`.}
   s.summary     = %q{Quickly operate on the git working copy and the index}
 
-  s.add_dependency 'thor',          '~> 0.16.0'
+  s.add_dependency 'thor', '~> 0.16'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
