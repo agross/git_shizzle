@@ -77,7 +77,7 @@ command :checkout do
 desc 'unstage files'
 command :unstage do
   applies_to do |index, work_tree|
-    index == :modified || index == :deleted
+    index == :modified || index == :deleted || index == :added
   end
 
   action do |index, work_tree, path|
