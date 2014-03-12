@@ -5,4 +5,4 @@ stage . ==> index
 diff 1 => show diff on modified tracked file
 unstage 1 ==> remove from index
 track 1 => add untracked file into index
-discard 1 => discard working directory changes on tracked file
+checkout 1 => discard working directory changes of tracked file
