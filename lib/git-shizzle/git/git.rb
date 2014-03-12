@@ -12,13 +12,14 @@ module GitShizzle::Git
     def status
       Dir.chdir(@repo_location) do
         status = command 'status --porcelain -z', [], :verbose => false, :redirect_io => true
-        status.
-                each_line("\x00").
-                each_with_index.map do |line, index|
-          File.new(
-                  :index => index,
-                  :status => line[0..1],
-                  :path => line[3..-1].delete("\000"))
+        status
+          .each_line("\x00")
+          .select { |line| line =~ /^[\p{Lu}\x20\?!]{2}\s/ }
+          .each_with_index.map do |line, index|
+            File.new(:index => index,
+                     :status => line[0..1],
+                     :path => line[3..-1].delete("\000"),
+                     :status_line => line)
         end
       end
     end

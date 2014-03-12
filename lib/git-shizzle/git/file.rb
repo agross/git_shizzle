@@ -2,12 +2,13 @@
 
 module GitShizzle::Git
   class File
-    attr_reader :index_status, :work_tree_status, :path
+    attr_reader :status_line, :index_status, :work_tree_status, :path
 
     def initialize(params)
+      @status_line = params[:status_line]
+      @path = params[:path]
       @index_status = map params[:status][0]
       @work_tree_status = map params[:status][1]
-      @path = params[:path]
     end
 
     def inspect
@@ -34,7 +35,7 @@ module GitShizzle::Git
         when ' '
           nil
         else
-          raise "Unexpected file status code '#{status_code}'"
+          raise "Unexpected file status code '#{status_code}' for file #{@path} (status line was: #{@status_line})"
       end
     end
   end

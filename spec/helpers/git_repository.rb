@@ -27,6 +27,10 @@ module GitRepository
     File.write file, ::SecureRandom.uuid
   end
 
+  def move(src, dst)
+    FileUtils.mv src, dst, :verbose => true
+  end
+
   def delete(file)
     FileUtils.rm file
   end
