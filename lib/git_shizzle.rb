@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-require 'git-shizzle/error'
-require 'git-shizzle/dsl'
-require 'git-shizzle/git'
-require 'git-shizzle/index_specifications'
+require 'git_shizzle/error'
+require 'git_shizzle/dsl'
+require 'git_shizzle/git'
+require 'git_shizzle/index_specifications'
 
 module GitShizzle
 

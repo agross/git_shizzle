@@ -1,6 +1,6 @@
 #! ruby
 
-$:.push File.expand_path("../../lib/git-shizzle", __FILE__)
+$:.push File.expand_path("../../lib/git_shizzle", __FILE__)
 
 require 'thor'
 require 'cli'
