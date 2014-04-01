@@ -1,6 +1,6 @@
 # git_shizzle
 
-[![Gem Version](https://badge.fury.io/rb/git_shizzle.png)](http://badge.fury.io/rb/git_shizzle) [![Build Status](https://travis-ci.org/agross/git_shizzle.png?branch=master)](https://travis-ci.org/agross/git_shizzle) [![Dependency Status](https://gemnasium.com/agross/git_shizzle.png)](https://gemnasium.com/agross/git_shizzle) [![Code Climate](https://codeclimate.com/github/agross/git_shizzle.png)](https://codeclimate.com/github/agross/git_shizzle)
+[![Gem Version](https://badge.fury.io/rb/git_shizzle.png)](http://badge.fury.io/rb/git_shizzle) [![Build Status](https://travis-ci.org/agross/git_shizzle.png?branch=master)](https://travis-ci.org/agross/git_shizzle) [![Dependency Status](https://gemnasium.com/agross/git_shizzle.png)](https://gemnasium.com/agross/git_shizzle) [![Code Climate](https://codeclimate.com/github/agross/git_shizzle.png)](https://codeclimate.com/github/agross/git_shizzle) [![Coverage Status](https://coveralls.io/repos/agross/git_shizzle/badge.png)](https://coveralls.io/r/agross/git_shizzle)
 
 git_shizzle lets you quickly operate on the file lists printed by `git status`. Imagine a number before each line of the status output and use that index to specify the file you want to operate on. For example, to stage the first file in the list of "Changes not staged for commit", run `quick-git stage 1`.
 
