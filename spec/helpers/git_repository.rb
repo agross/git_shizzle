@@ -6,8 +6,8 @@ module GitRepository
   extend RSpec::SharedContext
 
   let(:repo) { @repo }
-  before(:each) { create_sample_repo }
-  after(:each) { remove_sample_repo }
+  before { create_sample_repo }
+  after { remove_sample_repo }
 
   def create_sample_repo
     @previous_dir = Dir.pwd

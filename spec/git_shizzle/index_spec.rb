@@ -6,7 +6,7 @@ describe 'Indexes specified on the CLI' do
   subject { GitShizzle::QuickGit.new(git) }
   let(:number_of_untracked_files) { 10 }
 
-  before (:each) do
+  before do
     number_of_untracked_files.times.each do |i|
       create 'untracked-%02d' % (i + 1)
     end
@@ -15,7 +15,7 @@ describe 'Indexes specified on the CLI' do
   def assert_index_status(*status)
     number_of_untracked_files.times.each do |i|
       expected_status = status[i] || status[-1]
-      git.status[i].index_status.should == expected_status
+      expect(git.status[i].index_status).to eq(expected_status)
     end
   end
 

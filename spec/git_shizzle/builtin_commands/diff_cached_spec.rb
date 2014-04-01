@@ -5,8 +5,8 @@ describe 'Diff staged/cached files by index' do
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
-  context 'repository with modified files' do
-    before (:each) do
+  describe 'repository with staged files' do
+    before do
       %w{ deleted modified }.each { |f| create f; stage f }
       `git commit --message Blah`
 
@@ -15,36 +15,35 @@ describe 'Diff staged/cached files by index' do
       modify 'modified'
       stage 'modified'
 
-      git.status[0].work_tree_status.should == nil
-      git.status[0].index_status.should == :deleted
-      git.status[1].work_tree_status.should == nil
-      git.status[1].index_status.should == :modified
+      expect(git.status[0].work_tree_status).to eq(nil)
+      expect(git.status[0].index_status).to eq(:deleted)
+      expect(git.status[1].work_tree_status).to eq(nil)
+      expect(git.status[1].index_status).to eq(:modified)
+    end
+
+    before do
+      allow(git).to receive(:command).and_call_original
+      allow(git).to receive(:command).with(/diff/, anything)
     end
 
     context 'when a staged modified file is diffed' do
       it 'should run git diff --cached' do
-        git.stub(:command).and_call_original
-        git.stub(:command).with(/diff/, anything)
-
-        expect(git).to receive(:command).with('diff --cached --', ['modified'])
-
         subject.diff_cached 2
+
+        expect(git).to have_received(:command).with('diff --cached --', ['modified'])
       end
     end
 
     context 'when a staged deleted file is diffed' do
       it 'should run git diff --cached' do
-        git.stub(:command).and_call_original
-        git.stub(:command).with(/diff/, anything)
-
-        expect(git).to receive(:command).with('diff --cached --', ['deleted'])
-
         subject.diff_cached 1
+
+        expect(git).to have_received(:command).with('diff --cached --', ['deleted'])
       end
     end
   end
 
-  context 'when the repository contains no staged files' do
+  describe 'repository without staged files' do
     it 'should fail' do
       expect { subject.diff_cached 1 }.to raise_error
     end

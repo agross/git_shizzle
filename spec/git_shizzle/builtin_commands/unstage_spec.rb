@@ -5,8 +5,8 @@ describe 'Unstage staged/cached files by index' do
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
-  context 'repository with modified files' do
-    before (:each) do
+  describe 'repository with staged files' do
+    before do
       %w{ deleted modified }.each { |f| create f; stage f }
       `git commit --message Blah`
 
@@ -17,49 +17,45 @@ describe 'Unstage staged/cached files by index' do
       create 'untracked'
       stage 'untracked'
 
-      git.status[0].work_tree_status.should == nil
-      git.status[0].index_status.should == :deleted
-      git.status[1].work_tree_status.should == nil
-      git.status[1].index_status.should == :modified
-      git.status[2].work_tree_status.should == nil
-      git.status[2].index_status.should == :added
+      expect(git.status[0].work_tree_status).to eq(nil)
+      expect(git.status[0].index_status).to eq(:deleted)
+      expect(git.status[1].work_tree_status).to eq(nil)
+      expect(git.status[1].index_status).to eq(:modified)
+      expect(git.status[2].work_tree_status).to eq(nil)
+      expect(git.status[2].index_status).to eq(:added)
+    end
+
+    before do
+      allow(git).to receive(:command).and_call_original
+      allow(git).to receive(:command).with(/reset/, anything)
     end
 
     context 'when a staged modified file is unstaged' do
       it 'should run git reset HEAD' do
-        git.stub(:command).and_call_original
-        git.stub(:command).with(/reset/, anything)
-
-        expect(git).to receive(:command).with('reset HEAD --', ['modified'])
-
         subject.unstage 2
+
+        expect(git).to have_received(:command).with('reset HEAD --', ['modified'])
       end
     end
 
     context 'when a staged deleted file is unstaged' do
       it 'should run git reset HEAD' do
-        git.stub(:command).and_call_original
-        git.stub(:command).with(/reset/, anything)
-
-        expect(git).to receive(:command).with('reset HEAD --', ['deleted'])
-
         subject.unstage 1
+
+        expect(git).to have_received(:command).with('reset HEAD --', ['deleted'])
       end
     end
 
     context 'when a staged new file is unstaged' do
       it 'should run git reset HEAD' do
-        git.stub(:command).and_call_original
-        git.stub(:command).with(/reset/, anything)
-
-        expect(git).to receive(:command).with('reset HEAD --', ['untracked'])
-
         subject.unstage 3
+
+        expect(git).to have_received(:command).with('reset HEAD --', ['untracked'])
       end
     end
   end
 
-  context 'when the repository contains no staged files' do
+  describe 'repository without staged files' do
     it 'should fail' do
       expect { subject.unstage 1 }.to raise_error
     end

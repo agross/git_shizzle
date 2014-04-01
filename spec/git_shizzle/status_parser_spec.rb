@@ -9,7 +9,7 @@ describe 'File index, status and path parsed from `git status`' do
     it 'should be able to parse' do
       create 'file-name'
 
-      git.status.count.should == 1
+      expect(git.status.count).to eq(1)
     end
   end
 
@@ -17,7 +17,7 @@ describe 'File index, status and path parsed from `git status`' do
     it 'should be able to parse' do
       create 'file name'
 
-      git.status.count.should == 1
+      expect(git.status.count).to eq(1)
     end
   end
 
@@ -26,7 +26,7 @@ describe 'File index, status and path parsed from `git status`' do
       create 'file-1'
       create 'file-2'
 
-      git.status.count.should == 2
+      expect(git.status.count).to eq(2)
     end
   end
 
@@ -39,7 +39,7 @@ describe 'File index, status and path parsed from `git status`' do
         move 'file', 'renamed-file'
         stage
 
-        git.status.count.should == 1
+        expect(git.status.count).to eq(1)
       end
     end
 
@@ -52,7 +52,7 @@ describe 'File index, status and path parsed from `git status`' do
         stage
         create 'untracked'
 
-        git.status.count.should == 2
+        expect(git.status.count).to eq(2)
       end
     end
   end

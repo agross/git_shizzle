@@ -1,6 +1,6 @@
 require 'git_shizzle'
 
-describe 'Git Repository' do
+describe 'Git repository' do
 
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
