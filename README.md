@@ -18,6 +18,38 @@ $ gem install git_shizzle
 $ quick-git help
 ```
 
+### Examples
+
+```bash
+# Stage modified file 1 (first in output of git status).
+$ quick-git stage 1
+
+# Stage modified file 1, 2, 3 and 4, as in output of git status.
+$ quick-git stage 1 2 3 4
+
+# Stage files 1 to 3. Used like a Ruby range.
+$ quick-git stage 1..3
+
+# Stage all modified files.
+$ quick-git stage .
+
+# Show diff of modified file 1.
+$ quick-git diff 1
+
+# Remove staged file 1 from the index.
+$ quick-git unstage 1
+
+# Add untracked file 1 to the index.
+$ quick-git track 1
+
+# Discard working copy changes of modified file 1.
+$ quick-git checkout 1
+```
+
+### git aliases
+
+I recommend you set up git aliases like `git config --global alias.qa quick-git stage`. See some examples in [my dotfiles repository](https://github.com/agross/dotfiles/blob/master/profiles/cygwin/git/gitconfig#L18).
+
 ## Development
 
 * Source hosted at [GitHub](https://github.com/agross/git_shizzle)
