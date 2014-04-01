@@ -16,7 +16,7 @@ guard 'rspec',
   :all_on_start => true,
   :all_after_pass => true,
   :notification => true,
-  :cmd => 'bundle exec rspec --format documentation --tag ~@draft' do
+  :cmd => 'bundle exec rspec' do
     watch('.rspec')
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})
