@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
 require 'git_shizzle'
 
 describe 'Diff staged/cached files by index' do
@@ -15,7 +14,7 @@ describe 'Diff staged/cached files by index' do
       stage 'deleted'
       modify 'modified'
       stage 'modified'
-      
+
       git.status[0].work_tree_status.should == nil
       git.status[0].index_status.should == :deleted
       git.status[1].work_tree_status.should == nil

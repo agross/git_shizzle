@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
 require 'git_shizzle'
 
 describe 'Commands specified on the CLI' do

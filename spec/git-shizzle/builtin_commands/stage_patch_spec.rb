@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
 require 'git_shizzle'
 
 describe 'Stage patches by index', :draft => true do

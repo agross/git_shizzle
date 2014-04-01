@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
 require 'git_shizzle'
 
 describe 'Checkout files by index' do
@@ -13,7 +12,7 @@ describe 'Checkout files by index' do
 
       delete 'deleted'
       modify 'modified'
-      
+
       git.status[0].work_tree_status.should == :deleted
       git.status[1].work_tree_status.should == :modified
     end
