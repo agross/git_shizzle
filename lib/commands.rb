@@ -37,9 +37,9 @@ command :track do
   end
 
   action do |index, work_tree, path|
-     ['add --', path] if work_tree == :untracked
+    ['add --', path] if work_tree == :untracked
   end
-  end
+end
 
 desc 'diff files'
 command :diff do
@@ -72,7 +72,7 @@ command :checkout do
   action do |index, work_tree, path|
     ['checkout --', path]
   end
-  end
+end
 
 desc 'unstage files'
 command :unstage do
