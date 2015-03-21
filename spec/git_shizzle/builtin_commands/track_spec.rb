@@ -5,6 +5,10 @@ describe 'Track files by index' do
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
+  before do
+    allow($stdout).to receive(:puts)
+  end
+
   describe 'repository with untracked files' do
     before do
       create 'untracked-1'

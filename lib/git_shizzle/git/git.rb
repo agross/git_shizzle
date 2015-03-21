@@ -61,7 +61,7 @@ module GitShizzle::Git
     end
 
     def echo(msg, verbose)
-      puts(msg) if verbose && defined?(Thor)
+      $stdout.puts(msg) if verbose && defined?(Thor)
     end
   end
 end

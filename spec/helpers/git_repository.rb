@@ -28,7 +28,7 @@ module GitRepository
   end
 
   def move(src, dst)
-    FileUtils.mv src, dst, :verbose => true
+    FileUtils.mv src, dst
   end
 
   def delete(file)

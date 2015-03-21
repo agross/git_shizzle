@@ -11,7 +11,7 @@ command :stage do
       when :modified
         ['add --', path]
       when :deleted
-        ['rm --', path]
+        ['rm --quiet --', path]
     end
   end
 end

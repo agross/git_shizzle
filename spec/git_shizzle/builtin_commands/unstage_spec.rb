@@ -5,6 +5,10 @@ describe 'Unstage staged/cached files by index' do
   let(:git) { GitShizzle::Git::Git.new(repo) }
   subject { GitShizzle::QuickGit.new(git) }
 
+  before do
+    allow($stdout).to receive(:puts)
+  end
+
   describe 'repository with staged files' do
     before do
       %w{ deleted modified }.each { |f| create f; stage f }

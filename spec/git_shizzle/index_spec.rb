@@ -7,6 +7,10 @@ describe 'Indexes specified on the CLI' do
   let(:number_of_untracked_files) { 10 }
 
   before do
+    allow($stdout).to receive(:puts)
+  end
+
+  before do
     number_of_untracked_files.times.each do |i|
       create 'untracked-%02d' % (i + 1)
     end
