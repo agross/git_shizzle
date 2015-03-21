@@ -21,7 +21,7 @@ group :development do
 end
 
 group :development, :ci do
-  gem 'rspec', '>= 3.0.0.beta2', require: false
+  gem 'rspec', '~> 3.0', require: false
   gem 'rspec-its', require: false
   gem 'coveralls', require: false
 end
