@@ -10,17 +10,15 @@ module GitShizzle::Git
     end
 
     def status
-      Dir.chdir(@repo_location) do
-        status = command 'status --porcelain -z', [], :verbose => false, :redirect_io => true
-        status
-          .each_line("\x00")
-          .select { |line| line =~ /^[\p{Lu}\x20\?!]{2}\s/ }
-          .each_with_index.map do |line, index|
-            File.new(:index => index,
-                     :status => line[0..1],
-                     :path => line[3..-1].delete("\000"),
-                     :status_line => line)
-        end
+      status = command 'status --porcelain -z', [], :verbose => false, :redirect_io => true
+      status
+        .each_line("\x00")
+        .select { |line| line =~ /^[\p{Lu}\x20\?!]{2}\s/ }
+        .each_with_index.map do |line, index|
+          File.new(:index => index,
+                   :status => line[0..1],
+                   :path => line[3..-1].delete("\000"),
+                   :status_line => line)
       end
     end
 
@@ -48,14 +46,16 @@ module GitShizzle::Git
     end
 
     def run_command(git_cmd, params = { }, &block)
-      if block_given?
-        IO.popen(git_cmd, &block)
-      else
-        if params.fetch(:redirect_io, false)
-          git_cmd += ' 2>&1'
-          `#{git_cmd}`.chomp
+      Dir.chdir(@repo_location) do
+        if block_given?
+          IO.popen(git_cmd, &block)
         else
-          system git_cmd
+          if params.fetch(:redirect_io, false)
+            git_cmd += ' 2>&1'
+            `#{git_cmd}`.chomp
+          else
+            system git_cmd
+          end
         end
       end
     end
